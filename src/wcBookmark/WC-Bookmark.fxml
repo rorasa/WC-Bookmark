@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wcBookmark.Controller">
+   <children>
+      <TabPane layoutY="20.0" prefHeight="780.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="1.0">
+        <tabs>
+          <Tab closable="false" text="Bookmarks">
+               <content>
+                  <SplitPane dividerPositions="0.7" prefHeight="160.0" prefWidth="200.0">
+                     <items>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <bottom>
+                              <TableView prefHeight="688.0" prefWidth="686.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="ID" />
+                                    <TableColumn prefWidth="75.0" text="Name" />
+                                 </columns>
+                                 <BorderPane.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </TableView>
+                           </bottom>
+                           <top>
+                              <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <left>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Add" />
+                                          <Button layoutX="64.0" layoutY="7.0" mnemonicParsing="false" text="Delete" />
+                                       </children>
+                                    </AnchorPane>
+                                 </left>
+                                 <right>
+                                    <Button mnemonicParsing="false" text="Create catalogue page" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets right="5.0" />
+                                       </BorderPane.margin>
+                                    </Button>
+                                 </right>
+                              </BorderPane>
+                           </top>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <bottom>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <bottom>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </BorderPane.margin>
+                                    </TextArea>
+                                 </bottom>
+                                 <top>
+                                    <Label text="Note" BorderPane.alignment="CENTER" />
+                                 </top>
+                              </BorderPane>
+                           </bottom>
+                           <center>
+                              <AnchorPane minHeight="-Infinity" prefHeight="160.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TextField fx:id="bookmark_name" layoutX="13.0" layoutY="23.0" prefWidth="270.0" promptText="Name of the bookmark" />
+                                    <TextField layoutX="13.0" layoutY="72.0" prefWidth="270.0" promptText="Description" />
+                                    <TextField layoutX="14.0" layoutY="120.0" prefWidth="270.0" promptText="WCID" />
+                                    <Label layoutX="13.0" layoutY="6.0" text="Name" />
+                                    <Label layoutX="13.0" layoutY="55.0" text="Description" />
+                                    <Label layoutX="14.0" layoutY="193.0" text="Price" />
+                                    <Label layoutX="14.0" layoutY="222.0" text="Place of Purchase" />
+                                    <Label layoutX="15.0" layoutY="283.0" text="Date of Purchase" />
+                                    <Label layoutX="15.0" layoutY="103.0" text="Collection ID" />
+                                    <TextField layoutX="65.0" layoutY="188.0" prefHeight="27.0" prefWidth="218.0" promptText="Price" />
+                                    <Label layoutX="14.0" layoutY="159.0" text="Type" />
+                                    <ChoiceBox fx:id="bookmark_type" layoutX="65.0" layoutY="154.0" prefHeight="27.0" prefWidth="218.0" />
+                                    <TextField layoutX="14.0" layoutY="239.0" prefHeight="27.0" prefWidth="270.0" promptText="Shop name" />
+                                    <DatePicker layoutX="128.0" layoutY="278.0" prefHeight="27.0" prefWidth="154.0" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                           <top>
+                              <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ImageView fitHeight="201.0" fitWidth="336.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@placeholder.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </FlowPane>
+                           </top>
+                        </BorderPane>
+                     </items>
+                  </SplitPane>
+               </content>
+          </Tab>
+          <Tab closable="false" text="Shops">
+               <content>
+                  <SplitPane dividerPositions="0.7" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <bottom>
+                              <TableView prefHeight="688.0" prefWidth="686.0" BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="ID" />
+                                  <TableColumn prefWidth="75.0" text="Name" />
+                                </columns>
+                                 <BorderPane.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </TableView>
+                           </bottom>
+                           <top>
+                              <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <left>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Add" />
+                                          <Button layoutX="64.0" layoutY="7.0" mnemonicParsing="false" text="Delete" />
+                                       </children>
+                                    </AnchorPane>
+                                 </left>
+                              </BorderPane>
+                           </top>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <bottom>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <bottom>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </BorderPane.margin>
+                                    </TextArea>
+                                 </bottom>
+                                 <top>
+                                    <Label text="Note" BorderPane.alignment="CENTER" />
+                                 </top>
+                              </BorderPane>
+                           </bottom>
+                           <top>
+                              <AnchorPane prefHeight="520.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TextField layoutX="13.0" layoutY="31.0" prefWidth="270.0" promptText="Name of the shop" />
+                                    <TextField layoutX="14.0" layoutY="87.0" prefWidth="270.0" promptText="Location" />
+                                    <TextField layoutX="13.0" layoutY="202.0" prefWidth="270.0" promptText="Contact number" />
+                                    <TextField layoutX="13.0" layoutY="260.0" prefWidth="270.0" promptText="Email" />
+                                    <TextField layoutX="13.0" layoutY="317.0" prefWidth="270.0" promptText="Website" />
+                                    <Label layoutX="13.0" layoutY="14.0" text="Name" />
+                                    <Label layoutX="14.0" layoutY="70.0" text="Location" />
+                                    <Label layoutX="14.0" layoutY="127.0" text="Country" />
+                                    <ChoiceBox fx:id="shop_country" layoutX="14.0" layoutY="144.0" prefHeight="27.0" prefWidth="270.0" />
+                                    <Label layoutX="14.0" layoutY="185.0" text="Contact number" />
+                                    <Label layoutX="14.0" layoutY="243.0" text="Email" />
+                                    <Label layoutX="14.0" layoutY="300.0" text="Website" />
+                                 </children>
+                              </AnchorPane>
+                           </top>
+                        </BorderPane>
+                    </items>
+                  </SplitPane>
+               </content>
+          </Tab>
+            <Tab closable="false" text="Expert">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <bottom>
+                        <BorderPane prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+                           <top>
+                              <Label text="Output window" BorderPane.alignment="CENTER" />
+                           </top>
+                           <bottom>
+                              <TextArea prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                     </bottom>
+                     <top>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <top>
+                              <Label text="Command window" BorderPane.alignment="CENTER" />
+                           </top>
+                           <center>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                           </center>
+                           <bottom>
+                              <Button mnemonicParsing="false" text="Execute" BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                     </top>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="About">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
