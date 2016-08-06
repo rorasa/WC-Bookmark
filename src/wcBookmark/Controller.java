@@ -13,6 +13,8 @@ public class Controller {
     @FXML private TextField bookmark_name;
     @FXML private ChoiceBox shop_country;
 
+	DbManager db;
+
     public void initialize(){
 
         ChoiceList choices = new ChoiceList();
@@ -21,6 +23,10 @@ public class Controller {
 
         shop_country.setItems(choices.getCountryList());
     }
+
+	public void setDatabase(DbManager db){
+		this.db = db;
+	}
 
 
     private class ChoiceList {
