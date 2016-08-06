@@ -45,7 +45,7 @@ public class Controller {
 		try {
 			Boolean isResultSet = db.execute(sql);
 			if(isResultSet){
-				ResultSet rs = db.statement.getResultSet();
+				ResultSet rs = db.getStatement().getResultSet();
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columnsNumber = rsmd.getColumnCount();
 				for (int i = 1; i <= columnsNumber; i++){
@@ -60,9 +60,9 @@ public class Controller {
 					}
 					outText += "\n";
 				}
-				outText += "\nOperation finished successfully: "+db.statement.getUpdateCount()+" updated.";
+				outText += "\nOperation finished successfully: "+db.getStatement().getUpdateCount()+" updated.";
 			}else{
-				outText += "Operation finished successfully: "+db.statement.getUpdateCount()+" updated.";
+				outText += "Operation finished successfully: "+db.getStatement().getUpdateCount()+" updated.";
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -125,4 +125,5 @@ public class Controller {
         }
 
     }
+
 }
