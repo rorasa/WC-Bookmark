@@ -174,7 +174,7 @@
                               <Label text="Output window" BorderPane.alignment="CENTER" />
                            </top>
                            <bottom>
-                              <TextArea prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="expert_out" prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </bottom>
@@ -184,10 +184,10 @@
                               <Label text="Command window" BorderPane.alignment="CENTER" />
                            </top>
                            <center>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="expert_in" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                            </center>
                            <bottom>
-                              <Button mnemonicParsing="false" text="Execute" BorderPane.alignment="CENTER" />
+                              <Button fx:id="expert_submit" mnemonicParsing="false" onAction="#expertSubmitOnAction" text="Execute" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </top>

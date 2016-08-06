@@ -7,11 +7,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
+import java.io.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
 public class Controller {
 
     @FXML private ChoiceBox bookmark_type;
     @FXML private TextField bookmark_name;
     @FXML private ChoiceBox shop_country;
+
+	@FXML private TextArea expert_in;
+	@FXML private TextArea expert_out;
+	@FXML private Button expert_submit;
 
 	DbManager db;
 
@@ -28,8 +37,44 @@ public class Controller {
 		this.db = db;
 	}
 
+	@FXML protected void expertSubmitOnAction(ActionEvent event){
 
-    private class ChoiceList {
+		String sql = expert_in.getText();
+		String outText = sql + "\n\n";
+
+		try {
+			Boolean isResultSet = db.execute(sql);
+			if(isResultSet){
+				ResultSet rs = db.statement.getResultSet();
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int columnsNumber = rsmd.getColumnCount();
+				for (int i = 1; i <= columnsNumber; i++){
+					if (i > 1){outText += " | ";}
+					outText += rsmd.getColumnName(i);
+				}
+				outText += "\n";
+				while (rs.next()){
+					for (int i = 1; i <= columnsNumber; i++) {
+						if (i > 1){outText += " | ";}
+						outText += rs.getString(i);
+					}
+					outText += "\n";
+				}
+				outText += "\nOperation finished successfully: "+db.statement.getUpdateCount()+" updated.";
+			}else{
+				outText += "Operation finished successfully: "+db.statement.getUpdateCount()+" updated.";
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+
+		expert_out.setText(outText);
+
+		expert_in.setText("");
+	}
+
+
+	private class ChoiceList {
 
         public ObservableList getMaterialList(){
             return FXCollections.observableArrayList("Leather", "Paper", "Metal","Other");
