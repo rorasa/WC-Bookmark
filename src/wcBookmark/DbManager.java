@@ -29,6 +29,12 @@ public class DbManager {
         }
     }
 
+    public void closeConnection(){
+        try {
+            DriverManager.getConnection("jdbc:derby:"+dbname+";shutdown=true");
+        } catch (SQLException e) {}
+    }
+
     public Connection getConnection(){
         return this.connection;
     }
