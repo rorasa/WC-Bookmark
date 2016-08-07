@@ -20,6 +20,7 @@ public class ShopAddController {
     @FXML private TextArea shop_add_note;
 
     DbManager db;
+    Controller parent;
 
     public void initialize(){
         ChoiceList choices = new ChoiceList();
@@ -29,6 +30,7 @@ public class ShopAddController {
     public void setDatabase(DbManager db){
         this.db = db;
     }
+    public void setParent(Controller p){ this.parent = p; }
 
     @FXML protected void shopAddCancelOnAction(ActionEvent event){
         Stage stage = (Stage) shop_add_cancel.getScene().getWindow();
@@ -47,6 +49,8 @@ public class ShopAddController {
         String sql = "INSERT INTO SHOP (NAME, LOCATION, COUNTRY, TEL, EMAIL, WEBSITE, NOTE) VALUES ('"+
                 name+"', '"+location+"', '"+country+"', '"+tel+"', '"+email+"', '"+url+"', '"+note+"')";
         db.execute(sql);
+
+        parent.refresh();
 
         Stage stage = (Stage) shop_add_cancel.getScene().getWindow();
         stage.close();

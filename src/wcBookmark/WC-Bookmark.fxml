@@ -116,7 +116,7 @@
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <children>
                                           <Button fx:id="shop_add" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#shopAddOnAction" text="Add" />
-                                          <Button layoutX="64.0" layoutY="7.0" mnemonicParsing="false" text="Delete" />
+                                          <Button fx:id="shop_delete" layoutX="64.0" layoutY="7.0" mnemonicParsing="false" onAction="#shopDeleteOnAction" text="Delete" />
                                        </children>
                                     </AnchorPane>
                                  </left>

@@ -3,11 +3,14 @@ package wcBookmark;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -27,8 +30,12 @@ public class Controller {
 	@FXML private Button expert_submit;
 
 	@FXML private Button shop_add;
+	@FXML private Button shop_delete;
+	@FXML private TableView shop_table;
 
 	DbManager db;
+	ResultSet bookmarkResults;
+	ResultSet shopResults;
 
     public void initialize(){
 
@@ -37,10 +44,17 @@ public class Controller {
         bookmark_type.setValue("Leather");
 
         shop_country.setItems(choices.getCountryList());
+
+		initialiseShopTable();
     }
 
 	public void setDatabase(DbManager db){
 		this.db = db;
+		populateShopTable();
+	}
+
+	public void refresh(){
+		populateShopTable();
 	}
 
 	@FXML protected void expertSubmitOnAction(ActionEvent event){
@@ -84,11 +98,90 @@ public class Controller {
 		Parent root = loader.load();
 		ShopAddController controller = loader.getController();
 		controller.setDatabase(db);
+		controller.setParent(this);
 
 		Stage stage = new Stage();
 		stage.setTitle("Add new shop");
 		stage.setScene(new Scene(root, 1000, 800));
 		stage.show();
+	}
+
+	@FXML protected void shopDeleteOnAction(ActionEvent event){
+		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
+		System.out.println(index);
+	}
+
+	private void initialiseShopTable(){
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		TableColumn location = new TableColumn("Location");
+		TableColumn country = new TableColumn("Country");
+
+		shop_table.getColumns().addAll(id, name, location, country);
+
+		id.setCellValueFactory(new PropertyValueFactory<shopItem, String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<shopItem, String>("name"));
+		location.setCellValueFactory(new PropertyValueFactory<shopItem, String>("location"));
+		country.setCellValueFactory(new PropertyValueFactory<shopItem, String>("country"));
+
+		shop_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				try {
+					shopTableOnAction(event);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	private void populateShopTable(){
+		String sql = "SELECT * FROM SHOP";
+		ResultSet rs = db.executeQuery(sql);
+		shopResults = rs;
+
+		ObservableList<shopItem> data = FXCollections.observableArrayList();
+		try {
+			while(rs.next()){
+                data.add(new shopItem(rs.getInt("ID"), rs.getString("NAME"), rs.getString("LOCATION"), rs.getString("COUNTRY")));
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		shop_table.setItems(data);
+	}
+
+	private void shopTableOnAction(MouseEvent event) throws Exception{
+		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
+		System.out.println(index);
+
+		shopResults.absolute(index+1);
+		System.out.println(shopResults.getString("NAME")+" "+shopResults.getString("LOCATION")+" "+shopResults.getString("COUNTRY")+
+		shopResults.getString("TEL")+" "+shopResults.getString("EMAIL")+" "+shopResults.getString("WEBSITE"));
+	}
+
+	public class shopItem {
+		private int id;
+		private String name;
+		private String location;
+		private String country;
+
+		private shopItem(int id, String name, String loc, String country){
+			this.id = id;
+			this.name = name;
+			this.location = loc;
+			this.country = country;
+		}
+		public int getId(){	return id; }
+		public void setId(int id){ this.id = id; }
+		public String getName(){ return name; }
+		public void setName(String n){this.name = n; }
+		public String getLocation(){ return location; }
+		public void setLocation(String l){this.location = l; }
+		public String getCountry(){ return country; }
+		public void setCountry(String c){this.country = c; }
 	}
 
 	private class ChoiceList {

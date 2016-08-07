@@ -14,11 +14,13 @@ public class DbManager {
             this.dbname = dbname;
             if (new File(dbname).isDirectory()) {
                 connection = DriverManager.getConnection("jdbc:derby:"+dbname);
-                statement = connection.createStatement();
+                statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
                 System.out.println("Connected to database");
             } else {
                 connection = DriverManager.getConnection("jdbc:derby:"+dbname+";create=true");
-                statement = connection.createStatement();
+                statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);
                 System.out.println("New database created");
                 createNewDatabase();
                 System.out.println("Creaeted database structure");
