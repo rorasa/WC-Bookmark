@@ -16,10 +16,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
         Parent root = loader.load();
 
-//        DbManager db = new DbManager("wcdb");
+        DbManager db = new DbManager("wcdb");
 
-//        Controller controller = loader.getController();
-//        controller.setDatabase(db);
+        Controller controller = loader.getController();
+        controller.setDatabase(db);
 
         primaryStage.setTitle("Bookmark Collection | Wattanit's Collection");
         primaryStage.setScene(new Scene(root, 1000, 800));

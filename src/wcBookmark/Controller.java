@@ -21,45 +21,47 @@ import java.sql.SQLException;
 
 public class Controller {
 
-    @FXML private ChoiceBox bookmark_type;
-    @FXML private TextField bookmark_name;
-    @FXML private ChoiceBox shop_country;
+// Link symbols between java code and fxml file
+//    @FXML private ChoiceBox bookmark_type;
+//    @FXML private TextField bookmark_name;
+//    @FXML private ChoiceBox shop_country;
 
-	@FXML private TextArea expert_in;
+    @FXML private TextArea expert_in;
 	@FXML private TextArea expert_out;
 	@FXML private Button expert_submit;
 
-	@FXML private Button shop_add;
-	@FXML private Button shop_delete;
-	@FXML private TableView shop_table;
+//	@FXML private Button shop_add;
+//	@FXML private Button shop_delete;
+//	@FXML private TableView shop_table;
 
+// Declare class variables
 	DbManager db;
-	ResultSet bookmarkResults;
-	ResultSet shopResults;
+//	ResultSet bookmarkResults;
+//	ResultSet shopResults;
 
     public void initialize(){
 
         ChoiceList choices = new ChoiceList();
-        bookmark_type.setItems(choices.getMaterialList());
-        bookmark_type.setValue("Leather");
+  //      bookmark_type.setItems(choices.getMaterialList());
+  //      bookmark_type.setValue("Leather");
 
-        shop_country.setItems(choices.getCountryList());
+  //      shop_country.setItems(choices.getCountryList());
 
-		initialiseShopTable();
+//		initialiseShopTable();
     }
 
 	public void setDatabase(DbManager db){
 		this.db = db;
-		populateShopTable();
+//		populateShopTable();
 	}
 
-	public void refresh(){
-		populateShopTable();
-	}
+//	public void refresh(){
+//		populateShopTable();
+//	}
 
-	@FXML protected void expertSubmitOnAction(ActionEvent event){
+    @FXML protected void expertSubmitOnAction(ActionEvent event){
 
-		String sql = expert_in.getText();
+        String sql = expert_in.getText();
 		String outText = sql + "\n\n";
 
 		try {
@@ -93,96 +95,96 @@ public class Controller {
 		expert_in.setText("");
 	}
 
-	@FXML protected void shopAddOnAction(ActionEvent event) throws Exception{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("shop_add.fxml"));
-		Parent root = loader.load();
-		ShopAddController controller = loader.getController();
-		controller.setDatabase(db);
-		controller.setParent(this);
+//	@FXML protected void shopAddOnAction(ActionEvent event) throws Exception{
+//		FXMLLoader loader = new FXMLLoader(getClass().getResource("shop_add.fxml"));
+//		Parent root = loader.load();
+//		ShopAddController controller = loader.getController();
+//		controller.setDatabase(db);
+//		controller.setParent(this);
+//
+//		Stage stage = new Stage();
+//		stage.setTitle("Add new shop");
+//		stage.setScene(new Scene(root, 1000, 800));
+//		stage.show();
+//	}
 
-		Stage stage = new Stage();
-		stage.setTitle("Add new shop");
-		stage.setScene(new Scene(root, 1000, 800));
-		stage.show();
-	}
+//	@FXML protected void shopDeleteOnAction(ActionEvent event){
+//		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
+//		System.out.println(index);
+//	}
 
-	@FXML protected void shopDeleteOnAction(ActionEvent event){
-		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
-		System.out.println(index);
-	}
+//	private void initialiseShopTable(){
+//		TableColumn id = new TableColumn("ID");
+//		TableColumn name = new TableColumn("Name");
+//		TableColumn location = new TableColumn("Location");
+//		TableColumn country = new TableColumn("Country");
+//
+//		shop_table.getColumns().addAll(id, name, location, country);
+//
+//		id.setCellValueFactory(new PropertyValueFactory<shopItem, String>("id"));
+//		name.setCellValueFactory(new PropertyValueFactory<shopItem, String>("name"));
+//		location.setCellValueFactory(new PropertyValueFactory<shopItem, String>("location"));
+//		country.setCellValueFactory(new PropertyValueFactory<shopItem, String>("country"));
+//
+//		shop_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent event) {
+//				try {
+//					shopTableOnAction(event);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	private void initialiseShopTable(){
-		TableColumn id = new TableColumn("ID");
-		TableColumn name = new TableColumn("Name");
-		TableColumn location = new TableColumn("Location");
-		TableColumn country = new TableColumn("Country");
+//	private void populateShopTable(){
+//		String sql = "SELECT * FROM SHOP";
+//		ResultSet rs = db.executeQuery(sql);
+//		shopResults = rs;
+//
+//		ObservableList<shopItem> data = FXCollections.observableArrayList();
+//		try {
+//			while(rs.next()){
+ //               data.add(new shopItem(rs.getInt("ID"), rs.getString("NAME"), rs.getString("LOCATION"), rs.getString("//COUNTRY")));
+   //         }
+	//	} catch (SQLException e) {
+	//		e.printStackTrace();
+	//	}
+//
+//		shop_table.setItems(data);
+//	}
 
-		shop_table.getColumns().addAll(id, name, location, country);
-
-		id.setCellValueFactory(new PropertyValueFactory<shopItem, String>("id"));
-		name.setCellValueFactory(new PropertyValueFactory<shopItem, String>("name"));
-		location.setCellValueFactory(new PropertyValueFactory<shopItem, String>("location"));
-		country.setCellValueFactory(new PropertyValueFactory<shopItem, String>("country"));
-
-		shop_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				try {
-					shopTableOnAction(event);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	private void populateShopTable(){
-		String sql = "SELECT * FROM SHOP";
-		ResultSet rs = db.executeQuery(sql);
-		shopResults = rs;
-
-		ObservableList<shopItem> data = FXCollections.observableArrayList();
-		try {
-			while(rs.next()){
-                data.add(new shopItem(rs.getInt("ID"), rs.getString("NAME"), rs.getString("LOCATION"), rs.getString("COUNTRY")));
-            }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		shop_table.setItems(data);
-	}
-
-	private void shopTableOnAction(MouseEvent event) throws Exception{
-		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
-		System.out.println(index);
-
-		shopResults.absolute(index+1);
-		System.out.println(shopResults.getString("NAME")+" "+shopResults.getString("LOCATION")+" "+shopResults.getString("COUNTRY")+
-		shopResults.getString("TEL")+" "+shopResults.getString("EMAIL")+" "+shopResults.getString("WEBSITE"));
-	}
-
-	public class shopItem {
-		private int id;
-		private String name;
-		private String location;
-		private String country;
-
-		private shopItem(int id, String name, String loc, String country){
-			this.id = id;
-			this.name = name;
-			this.location = loc;
-			this.country = country;
-		}
-		public int getId(){	return id; }
-		public void setId(int id){ this.id = id; }
-		public String getName(){ return name; }
-		public void setName(String n){this.name = n; }
-		public String getLocation(){ return location; }
-		public void setLocation(String l){this.location = l; }
-		public String getCountry(){ return country; }
-		public void setCountry(String c){this.country = c; }
-	}
+//	private void shopTableOnAction(MouseEvent event) throws Exception{
+//		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
+//		System.out.println(index);
+//
+//		shopResults.absolute(index+1);
+//		System.out.println(shopResults.getString("NAME")+" "+shopResults.getString("LOCATION")+" "+shopResults.getStri//ng("COUNTRY")+
+//		shopResults.getString("TEL")+" "+shopResults.getString("EMAIL")+" "+shopResults.getString("WEBSITE"));
+//	}
+//
+//	public class shopItem {
+//		private int id;
+//		private String name;
+//		private String location;
+//		private String country;
+//
+//		private shopItem(int id, String name, String loc, String country){
+//			this.id = id;
+//			this.name = name;
+//			this.location = loc;
+//			this.country = country;
+//		}
+//		public int getId(){	return id; }
+//		public void setId(int id){ this.id = id; }
+//		public String getName(){ return name; }
+//		public void setName(String n){this.name = n; }
+//		public String getLocation(){ return location; }
+//		public void setLocation(String l){this.location = l; }
+//		public String getCountry(){ return country; }
+//		public void setCountry(String c){this.country = c; }
+//	}
 
 	private class ChoiceList {
 
