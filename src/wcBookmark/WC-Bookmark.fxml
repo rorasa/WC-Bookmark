@@ -104,11 +104,7 @@
                     <items>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <bottom>
-                              <TableView prefHeight="688.0" prefWidth="686.0" BorderPane.alignment="CENTER">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
-                                  <TableColumn prefWidth="75.0" text="Name" />
-                                </columns>
+                              <TableView fx:id="shop_table" prefHeight="688.0" prefWidth="686.0" BorderPane.alignment="CENTER">
                                  <BorderPane.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </BorderPane.margin>
@@ -119,8 +115,8 @@
                                  <left>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" text="Add" />
-                                          <Button layoutX="64.0" layoutY="7.0" mnemonicParsing="false" text="Delete" />
+                                          <Button fx:id="shop_add" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#shopAddOnAction" text="Add" />
+                                          <Button fx:id="shop_delete" layoutX="64.0" layoutY="7.0" mnemonicParsing="false" onAction="#shopDeleteOnAction" text="Delete" />
                                        </children>
                                     </AnchorPane>
                                  </left>
@@ -174,7 +170,7 @@
                               <Label text="Output window" BorderPane.alignment="CENTER" />
                            </top>
                            <bottom>
-                              <TextArea prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="expert_out" prefHeight="552.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </bottom>
@@ -184,10 +180,10 @@
                               <Label text="Command window" BorderPane.alignment="CENTER" />
                            </top>
                            <center>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="expert_in" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                            </center>
                            <bottom>
-                              <Button mnemonicParsing="false" text="Execute" BorderPane.alignment="CENTER" />
+                              <Button fx:id="expert_submit" mnemonicParsing="false" onAction="#expertSubmitOnAction" text="Execute" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </top>
