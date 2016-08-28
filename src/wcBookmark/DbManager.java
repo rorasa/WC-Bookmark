@@ -75,16 +75,16 @@ public class DbManager {
 
         try {
             // create SHOP table
-            sql = "CREATE TABLE SHOP (ID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-                "NAME VARCHAR(120) NOT NULL, " +
-                "LOCATION VARCHAR(120), " +
-                "COUNTRY VARCHAR(60), " +
-                "TEL VARCHAR(20), " +
-                "EMAIL VARCHAR(60), " +
-                "WEBSITE VARCHAR(200), " +
-                "NOTE VARCHAR(2000))";
+//            sql = "CREATE TABLE SHOP (ID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+//                "NAME VARCHAR(120) NOT NULL, " +
+//                "LOCATION VARCHAR(120), " +
+//                "COUNTRY VARCHAR(60), " +
+//                "TEL VARCHAR(20), " +
+//                "EMAIL VARCHAR(60), " +
+//                "WEBSITE VARCHAR(200), " +
+//                "NOTE VARCHAR(2000))";
 
-            statement.execute(sql);
+//          statement.execute(sql);
 
             // create BOOKMARK table
             sql =  "CREATE TABLE BOOKMARK (ID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -92,8 +92,8 @@ public class DbManager {
                 "NAME VARCHAR(120) NOT NULL, " +
                 "DESCRIPTION VARCHAR(120), " +
                 "TYPE VARCHAR(20), " +
-                "PRICE NUMERIC, " +
-                "BOUGHT_FROM INT REFERENCES SHOP(ID) ON DELETE SET NULL, " +
+                "PRICE VARCHAR(20), " +
+                "BOUGHT_FROM VARCHAR(60), " +
                 "BOUGHT_DATE DATE, " +
                 "DATE_ADDED DATE, " +
                 "OWN BOOLEAN, " +

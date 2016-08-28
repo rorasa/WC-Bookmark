@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wcBookmark.Controller">
+   <bottom>
+      <FlowPane maxHeight="-Infinity" prefHeight="25.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <TabPane prefHeight="775.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab closable="false" text="Bookmark">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <right>
+                        <BorderPane minWidth="-Infinity" prefHeight="742.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                           <top>
+                              <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <ImageView fitHeight="299.0" fitWidth="289.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@placeholder.png" />
+                                       </image>
+                                    </ImageView>
+                                 </center>
+                                 <left>
+                                    <Button mnemonicParsing="false" text="&lt;" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <right>
+                                    <Button mnemonicParsing="false" text="&gt;" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </top>
+                           <center>
+                              <AnchorPane minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="bmName" layoutX="20.0" layoutY="17.0" text="Bookmark name">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="bmDescription" layoutX="20.0" layoutY="46.0" text="Description">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="bmCollection" layoutX="20.0" layoutY="95.0" text="Collection ID" />
+                                    <Label fx:id="bmBoughtDate" layoutX="20.0" layoutY="173.0" text="Date of purchase" />
+                                    <Label fx:id="bmPrice" layoutX="20.0" layoutY="200.0" text="Initial price" />
+                                    <Label fx:id="bmBoughtFrom" layoutX="20.0" layoutY="146.0" text="Place of purchase" />
+                                    <Button layoutX="275.0" layoutY="251.0" mnemonicParsing="false" text="Edit" />
+                                    <Button layoutX="149.0" layoutY="251.0" mnemonicParsing="false" text="Catalogue page" />
+                                    <Label fx:id="bmType" layoutX="20.0" layoutY="122.0" text="Type" />
+                                    <Label fx:id="bmDateAdded" layoutX="20.0" layoutY="225.0" text="Date added" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                           <bottom>
+                              <TextArea fx:id="bmNote" prefHeight="150.0" prefWidth="350.0" promptText="Note" BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                     </right>
+                     <left>
+                        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="742.0" prefWidth="645.0" BorderPane.alignment="CENTER">
+                           <top>
+                              <BorderPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <right>
+                                    <Button mnemonicParsing="false" text="Add bookmark" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets right="20.0" />
+                                       </BorderPane.margin>
+                                    </Button>
+                                 </right>
+                                 <left>
+                                    <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                       <image>
+                                          <Image url="@WC-logo.png" />
+                                       </image></ImageView>
+                                 </left>
+                              </BorderPane>
+                           </top>
+                           <bottom>
+                              <TableView fx:id="bookmark_table" prefHeight="688.0" prefWidth="645.0" BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                     </left>
+                  </BorderPane>
+               </content>
+          </Tab>
+          <Tab closable="false" text="Expert">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <TextArea fx:id="expert_in" maxHeight="-Infinity" prefHeight="125.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <TextArea fx:id="expert_out" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="544.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <center>
+                        <AnchorPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="expert_submit" layoutX="433.0" layoutY="21.0" mnemonicParsing="false" onAction="#expertSubmitOnAction" text="Submit" />
+                              <Button layoutX="511.0" layoutY="21.0" mnemonicParsing="false" text="Clear" />
+                           </children>
+                        </AnchorPane>
+                     </center>
+                  </BorderPane>
+               </content>
+          </Tab>
+            <Tab text="About">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </top>
+</BorderPane>
