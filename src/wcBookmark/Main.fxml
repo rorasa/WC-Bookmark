@@ -39,29 +39,29 @@
                            <center>
                               <AnchorPane minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label layoutX="20.0" layoutY="17.0" text="Bookmark name">
+                                    <Label fx:id="bmName" layoutX="20.0" layoutY="17.0" text="Bookmark name">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="20.0" layoutY="46.0" text="Description">
+                                    <Label fx:id="bmDescription" layoutX="20.0" layoutY="46.0" text="Description">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="20.0" layoutY="95.0" text="Collection ID" />
-                                    <Label layoutX="20.0" layoutY="173.0" text="Date of purchase" />
-                                    <Label layoutX="20.0" layoutY="200.0" text="Initial price" />
-                                    <Label layoutX="20.0" layoutY="146.0" text="Place of purchase" />
+                                    <Label fx:id="bmCollection" layoutX="20.0" layoutY="95.0" text="Collection ID" />
+                                    <Label fx:id="bmBoughtDate" layoutX="20.0" layoutY="173.0" text="Date of purchase" />
+                                    <Label fx:id="bmPrice" layoutX="20.0" layoutY="200.0" text="Initial price" />
+                                    <Label fx:id="bmBoughtFrom" layoutX="20.0" layoutY="146.0" text="Place of purchase" />
                                     <Button layoutX="275.0" layoutY="251.0" mnemonicParsing="false" text="Edit" />
                                     <Button layoutX="149.0" layoutY="251.0" mnemonicParsing="false" text="Catalogue page" />
-                                    <Label layoutX="20.0" layoutY="122.0" text="Type" />
-                                    <Label layoutX="20.0" layoutY="225.0" text="Date added" />
+                                    <Label fx:id="bmType" layoutX="20.0" layoutY="122.0" text="Type" />
+                                    <Label fx:id="bmDateAdded" layoutX="20.0" layoutY="225.0" text="Date added" />
                                  </children>
                               </AnchorPane>
                            </center>
                            <bottom>
-                              <TextArea prefHeight="150.0" prefWidth="350.0" promptText="Note" BorderPane.alignment="CENTER" />
+                              <TextArea fx:id="bmNote" prefHeight="150.0" prefWidth="350.0" promptText="Note" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </right>
@@ -85,12 +85,7 @@
                               </BorderPane>
                            </top>
                            <bottom>
-                              <TableView prefHeight="688.0" prefWidth="645.0" BorderPane.alignment="CENTER">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
-                                </columns>
-                              </TableView>
+                              <TableView fx:id="bookmark_table" prefHeight="688.0" prefWidth="645.0" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
                      </left>

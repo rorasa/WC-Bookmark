@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +27,15 @@ public class Controller {
 //    @FXML private ChoiceBox bookmark_type;
 //    @FXML private TextField bookmark_name;
 //    @FXML private ChoiceBox shop_country;
+    @FXML private Label bmName;
+    @FXML private Label bmDescription;
+    @FXML private Label bmCollection;
+    @FXML private Label bmType;
+    @FXML private Label bmBoughtFrom;
+    @FXML private Label bmBoughtDate;
+    @FXML private Label bmDateAdded;
+    @FXML private Label bmPrice;
+    @FXML private TextArea bmNote;
 
     @FXML private TextArea expert_in;
 	@FXML private TextArea expert_out;
@@ -32,11 +43,11 @@ public class Controller {
 
 //	@FXML private Button shop_add;
 //	@FXML private Button shop_delete;
-//	@FXML private TableView shop_table;
+	@FXML private TableView bookmark_table;
 
 // Declare class variables
 	DbManager db;
-//	ResultSet bookmarkResults;
+	ResultSet bookmarkResults;
 //	ResultSet shopResults;
 
     public void initialize(){
@@ -47,17 +58,30 @@ public class Controller {
 
   //      shop_country.setItems(choices.getCountryList());
 
-//		initialiseShopTable();
+        bmNote.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldProp, Boolean newProp) {
+                if (!newProp){
+                    try{
+                        bmNoteOnAction();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }); 
+
+		initialiseBookmarkTable();
     }
 
 	public void setDatabase(DbManager db){
 		this.db = db;
-//		populateShopTable();
+		populateBookmarkTable();
 	}
 
-//	public void refresh(){
-//		populateShopTable();
-//	}
+	public void refresh(){
+		populateBookmarkTable();
+	}
 
     @FXML protected void expertSubmitOnAction(ActionEvent event){
 
@@ -113,31 +137,47 @@ public class Controller {
 //		System.out.println(index);
 //	}
 
-//	private void initialiseShopTable(){
-//		TableColumn id = new TableColumn("ID");
-//		TableColumn name = new TableColumn("Name");
-//		TableColumn location = new TableColumn("Location");
-//		TableColumn country = new TableColumn("Country");
-//
-//		shop_table.getColumns().addAll(id, name, location, country);
-//
-//		id.setCellValueFactory(new PropertyValueFactory<shopItem, String>("id"));
-//		name.setCellValueFactory(new PropertyValueFactory<shopItem, String>("name"));
-//		location.setCellValueFactory(new PropertyValueFactory<shopItem, String>("location"));
-//		country.setCellValueFactory(new PropertyValueFactory<shopItem, String>("country"));
-//
-//		shop_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			@Override
-//			public void handle(MouseEvent event) {
-//				try {
-//					shopTableOnAction(event);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private void initialiseBookmarkTable(){
+        // create columes
+		TableColumn id = new TableColumn("ID");
+		TableColumn name = new TableColumn("Name");
+		TableColumn description = new TableColumn("Description");
 
+		bookmark_table.getColumns().addAll(id, name, description);
+
+        // create CellFactory to manage the population of each column
+		id.setCellValueFactory(new PropertyValueFactory<bookmarkEntry, String>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<bookmarkEntry, String>("name"));
+		description.setCellValueFactory(new PropertyValueFactory<bookmarkEntry, String>("description"));
+
+		bookmark_table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				try {
+					bookmarkTableOnAction(event);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+    private void populateBookmarkTable(){
+        String sql = "SELECT * FROM BOOKMARK";
+        ResultSet rs = db.executeQuery(sql);
+        bookmarkResults = rs;
+
+        ObservableList<bookmarkEntry> data = FXCollections.observableArrayList();
+        try{
+            while(rs.next()){
+                data.add(new bookmarkEntry(rs.getInt("ID"), rs.getString("NAME"), rs.getString("DESCRIPTION")));
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        bookmark_table.setItems(data);
+    }
 //	private void populateShopTable(){
 //		String sql = "SELECT * FROM SHOP";
 //		ResultSet rs = db.executeQuery(sql);
@@ -155,6 +195,56 @@ public class Controller {
 //		shop_table.setItems(data);
 //	}
 
+    private void bookmarkTableOnAction(MouseEvent event) throws Exception{
+        int index = bookmark_table.getSelectionModel().selectedIndexProperty().get();
+        System.out.println(index);
+
+        bookmarkResults.absolute(index+1);
+        System.out.println(bookmarkResults.getString("NAME")+" "+bookmarkResults.getString("DESCRIPTION")+" "+bookmarkResults.getString("TYPE")+" price: "+bookmarkResults.getString("PRICE")+" "+bookmarkResults.getString("BOUGHT_FROM"));
+
+        // read values from result sets
+        String name = bookmarkResults.getString("NAME");
+        String description = bookmarkResults.getString("DESCRIPTION");
+        String collection = bookmarkResults.getString("COLLECTION_ID");
+        String type = bookmarkResults.getString("TYPE");
+        String price = bookmarkResults.getString("PRICE");
+        String bought_from = bookmarkResults.getString("BOUGHT_FROM");
+        String bought_date = bookmarkResults.getString("BOUGHT_DATE");
+        String note = bookmarkResults.getString("NOTE");
+        
+        // replace all null value with n/a
+        if(name==null){ name = "Untitled"; }
+        if(description==null){ description = ""; }
+        if(collection==null){ collection = "n/a"; }
+        if(type==null){ type = "n/a"; }
+        if(price==null){ price = "n/a"; }
+        if(bought_from==null){ bought_from = "n/a"; }
+        if(bought_date==null){ bought_date = "n/a"; }
+        if(note==null){ note = ""; }
+
+        bmName.setText(name);
+        bmDescription.setText(description);
+        bmCollection.setText("Collection ID: "+collection);
+        bmType.setText("Type: "+type);
+        bmBoughtFrom.setText("Place of purchase: "+bought_from);
+        bmBoughtDate.setText("Date of purchase: "+bought_date);
+        bmPrice.setText("Initial price: "+price);
+        bmNote.setText(note);
+    }
+
+    private void bmNoteOnAction() throws Exception{
+        int index = bookmark_table.getSelectionModel().selectedIndexProperty().get(); 
+        if(index<0){ return; }
+        bookmarkResults.absolute(index+1);
+        int id = bookmarkResults.getInt("ID");
+
+        String note = bmNote.getText();
+        String sql = "UPDATE BOOKMARK SET NOTE='"+note+"' WHERE ID="+id;
+        
+        db.execute(sql);
+        refresh();
+    }
+
 //	private void shopTableOnAction(MouseEvent event) throws Exception{
 //		int index = shop_table.getSelectionModel().selectedIndexProperty().get();
 //		System.out.println(index);
@@ -164,6 +254,25 @@ public class Controller {
 //		shopResults.getString("TEL")+" "+shopResults.getString("EMAIL")+" "+shopResults.getString("WEBSITE"));
 //	}
 //
+    public class bookmarkEntry{
+        // template class for each bookmark entry in the bookmark_table.
+        // this is an internal class called by the CellFactory.
+        private int id;
+        private String name;
+        private String description;
+        
+        private bookmarkEntry(int id, String name, String description){
+            this.id = id;
+            this.name = name;
+            this.description = description;
+        }
+        public int getId(){ return id; }
+        public void setId(int id){ this.id = id; }
+        public String getName(){ return name; }
+        public void setName(String name){ this.name = name; }
+        public String getDescription(){ return description; }
+        public void setDescription(){ this.description = description; }
+    }
 //	public class shopItem {
 //		private int id;
 //		private String name;
